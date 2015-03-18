@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Rwanda::VERSION
   spec.authors       = ["Dan Hetherington"]
   spec.email         = ["dan.hetherington@gmail.com"]
-  spec.summary       = %q{Access basic geographic information about Rwanda.}
-  spec.description   = %q{}
+  spec.summary       = %q{Access information about geographical divisions in Rwanda.}
+  #spec.description   = %q{}
   spec.homepage      = "http://www.minicom.gov.rw/"
   spec.license       = "GNU General Public License version 3.0 (GPL-3.0)"
 

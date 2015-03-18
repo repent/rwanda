@@ -24,7 +24,7 @@ class Rwanda
   
   def districts_of(province)
     return nil unless Province[province]
-    Province[province].collect {|d,s| d}
+    Province[province].keys
   end
   def sectors_of(district)
     districts_with_sectors[district]
@@ -59,16 +59,10 @@ class Rwanda
   
   # ))
   
-  # imported:
-  
   private
   
-  def districts_with_sectors
-    all_districts_with_sectors = {}
-    Province.each do |p,d_hash|
-      all_districts_with_sectors.merge!(d_hash)
-    end
-    all_districts_with_sectors
+  def districts_with_sectors # flatten out province layer
+    Province.each_with_object({}) { |(p,d_hash),h| h.merge! d_hash }
   end
   #def sectors_with_cells
   #  all_sectors_with_cells = {}
