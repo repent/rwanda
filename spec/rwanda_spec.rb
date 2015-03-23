@@ -54,6 +54,21 @@ describe Rwanda do
     end
   end
   
+  # Below this level it is no longer possible to use strings because there are mulitple sectors with the same name
+  
+  describe '.cells_of' do
+    it 'knows all the cells of a sector' do
+      # Nyagatare,Mimuri,Mahoro,Rubumba
+      expect(r.cells_of('Nyagatare', 'Mimuri')).to eq ['Bibare', 'Gakoma', 'Mahoro', 'Mimuri', 'Rugari']
+    end
+  end
+  
+  describe '.villages_of' do
+    it 'knows all the villages of a cell' do
+      expect(r.villages_of('Ruhango', 'Ruhango', 'Gikoma')).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']
+    end
+  end
+  
   # Lists
   
   describe '.provinces' do

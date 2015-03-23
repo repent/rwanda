@@ -71,6 +71,12 @@ class Rwanda
     sectors = @villages.select {|v| v.district == district }.collect {|v| v.sector}.uniq
     sectors.empty? ? nil : sectors
   end
+  def cells_of(district, sector)
+    @villages.select {|v| v.district == district and v.sector == sector}.collect {|v| v.cell}.uniq
+  end
+  def villages_of(district, sector, cell)
+    @villages.select {|v| v.district == district and v.sector == sector and v.cell == cell}.collect {|v| v.village}
+  end    
   # )) Lists ((
   def provinces; @villages.collect{|v| v.province}.uniq; end
   def districts; @villages.collect{|v| v.district}.uniq; end
@@ -81,8 +87,18 @@ class Rwanda
   end
   
   # )) Matching
-  def division_like(division)
-  
+  def province_like(province)
+    @fmp ||= FuzzyMatch.new(provinces)
+    @fmp.find(province)
+  end
+  def district_like(district)
+    @fmd ||= FuzzyMatch.new(districts)
+    @fmd.find(district)
+  end
+  def sector_like(sector)
+    # Already problematic here: there are identical sector names
+    @fms ||= FuzzyMatch.new(sectors)
+    @fms.find(sector)
   end
 end
 
