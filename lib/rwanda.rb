@@ -34,6 +34,7 @@ end
 
 class Rwanda
   attr_accessor :villages
+  DIVISIONS=[:province,:district,:sector,:cell,:village]
   RW = {
     'Northern Province' => 'Amajyaruguru',
     'Southern Province' => 'Amajyepfo',
@@ -86,7 +87,7 @@ class Rwanda
     #@villages.collect{|v| v.sector}.uniq
   end
   
-  # )) Matching
+  # )) Matching ((
   def province_like(province)
     @fmp ||= FuzzyMatch.new(provinces)
     @fmp.find(province)
@@ -100,8 +101,24 @@ class Rwanda
     @fms ||= FuzzyMatch.new(sectors)
     @fms.find(sector)
   end
+  # )) Testing
+  #def is_province?(province); @villages.any? {|v| v.province == province}; end
+  # is_division?
+  DIVISIONS.each do |division|
+    define_method("is_#{division}?") do |argument|
+      @villages.any? {|v| v.send(division) == argument}
+    end
+  end
+  def exist?(district, sector=false, cell=false, village=false)
+    villages = @villages.dup
+    return false unless district
+    {district: district, sector: sector, cell: cell, village: village}.each_pair do |division_name,division|
+      #binding.pry
+      return true unless division
+      villages.select! {|v| v.send(division_name) == division}
+      return false if villages.empty?
+    end
+    true    
+  end
 end
-
-#rw=Rwanda.new
-#puts rw.villages
 

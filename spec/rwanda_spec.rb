@@ -113,4 +113,34 @@ describe Rwanda do
       expect(r.sector_like('Kazu')).to eq 'Kazo'
     end
   end
+  
+  # Testing
+  
+  describe '.is_[division]?' do
+    it 'knows whether a division exists' do
+      expect(r.is_district? 'Karongi').to eq true
+      expect(r.is_sector? 'Gashari').to eq true
+      expect(r.is_cell? 'Musasa').to eq true
+      expect(r.is_village? 'Kaduha').to eq true
+      expect(r.is_district? 'Karoooongi').to eq false
+      expect(r.is_sector? 'Gashariii').to eq false
+      expect(r.is_cell? 'Musasasasasa').to eq false
+      expect(r.is_village? 'Kaduhahaha').to eq false
+    end
+  end
+  
+  describe '.is_real' do
+    it 'knows whether a chain of divisions is legitimate' do
+      expect(r.exist?('Karongi','Bwishyura','Kiniha','Nyarurembo')).to eq true
+      expect(r.exist?('Karongi','Bwishyura','Nyarurembo')).to eq false
+      expect(r.exist?('Karongi')).to eq true
+    end
+  end
+  #describe '.is_in?' do
+  #  it 'knows whether a smaller division is inside a larger division' do
+  #    expect(r.is_in?('Karongi','Gashari')).to eq true
+  #    expect(r.is_in?('Gashari','Karongi')).to eq false
+  #    expect(r.is_in?('
+  #  end
+  #end
 end
