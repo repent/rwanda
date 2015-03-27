@@ -6,11 +6,7 @@ require 'fuzzy_match'
 require 'csv'
 require 'pry'
 
-#binding.pry
-
 DATA = File.join(File.dirname(File.expand_path(__FILE__)), 'rwanda/data.csv')
-
-binding.pry
 
 class Array
   def select_first
