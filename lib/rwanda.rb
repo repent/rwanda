@@ -8,7 +8,9 @@ require 'pry'
 
 #binding.pry
 
-DATA = 'lib/rwanda/data.csv'
+DATA = File.join(File.dirname(File.expand_path(__FILE__)), 'rwanda/data.csv')
+
+binding.pry
 
 class Array
   def select_first
