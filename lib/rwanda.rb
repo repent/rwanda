@@ -10,8 +10,6 @@ require 'pry'
 
 DATA = File.join(File.dirname(File.expand_path(__FILE__)), 'rwanda/data.csv')
 
-binding.pry
-
 class Array
   def select_first
     self.each do |el|
