@@ -20,9 +20,7 @@ end
 class Village
   attr_accessor :province, :district, :sector, :cell, :village
   
-  #def initialize(province, district, sector, cell, village)
   def initialize(row)
-    #@province,@district,@sector,@cell,@village=province,district,sector,cell,village
     @province,@district,@sector,@cell,@village=row['province'],row['district'],row['sector'],row['cell'],row['village']
   end
   def to_s
@@ -47,9 +45,10 @@ class Rwanda
       villages << Village.new(row)
     end
   end
+
   # Singular Ofs ((
   def province_of(district, rw=false)
-    village = @villages.select_first {|v| v.district == district}
+    village = @villages.select_first {|v| v.district.downcase == district.downcase}
     if village
       if rw then RW[village.province] else village.province end
     else
@@ -57,24 +56,24 @@ class Rwanda
     end
   end
   def district_of(sector)
-    village = @villages.select_first {|v| v.sector == sector}
+    village = @villages.select_first {|v| v.sector.downcase == sector.downcase}
     village ? village.district : nil
   end
   # )) Plural Ofs ((
   def districts_of(province)
-    districts = @villages.select {|v| v.province == province }.collect {|v| v.district}.uniq
+    districts = @villages.select {|v| v.province.downcase == province.downcase }.collect {|v| v.district}.uniq
     #binding.pry
     districts.empty? ? nil : districts
   end
   def sectors_of(district)
-    sectors = @villages.select {|v| v.district == district }.collect {|v| v.sector}.uniq
+    sectors = @villages.select {|v| v.district.downcase == district.downcase }.collect {|v| v.sector}.uniq
     sectors.empty? ? nil : sectors
   end
   def cells_of(district, sector)
-    @villages.select {|v| v.district == district and v.sector == sector}.collect {|v| v.cell}.uniq
+    @villages.select {|v| v.district.downcase == district.downcase and v.sector.downcase == sector.downcase}.collect {|v| v.cell}.uniq
   end
   def villages_of(district, sector, cell)
-    @villages.select {|v| v.district == district and v.sector == sector and v.cell == cell}.collect {|v| v.village}
+    @villages.select {|v| v.district.downcase == district.downcase and v.sector.downcase == sector.downcase and v.cell.downcase == cell.downcase}.collect {|v| v.village}
   end    
   # )) Lists ((
   def provinces; @villages.collect{|v| v.province}.uniq; end
@@ -99,12 +98,13 @@ class Rwanda
     @fms ||= FuzzyMatch.new(sectors)
     @fms.find(sector)
   end
-  # )) Testing
+  
+  # )) Testing ((
   #def is_province?(province); @villages.any? {|v| v.province == province}; end
   # is_division?
   DIVISIONS.each do |division|
     define_method("is_#{division}?") do |argument|
-      @villages.any? {|v| v.send(division) == argument}
+      @villages.any? {|v| v.send(division).downcase == argument.downcase}
     end
   end
   def exist?(district, sector=false, cell=false, village=false)
@@ -113,10 +113,26 @@ class Rwanda
     {district: district, sector: sector, cell: cell, village: village}.each_pair do |division_name,division|
       #binding.pry
       return true unless division
-      villages.select! {|v| v.send(division_name) == division}
+      villages.select! {|v| v.send(division_name).downcase == division.downcase}
       return false if villages.empty?
     end
     true    
+  end
+  
+  # )) Translation ((
+  def translate(province)
+    kin = RW.find { |eng,kin| eng.downcase == province.downcase } # returns [key, val]
+    return kin[1] if kin
+    eng = RW.find { |eng,kin| kin.downcase == province.downcase }
+    return eng[0] if eng
+    nil
+    #if RW.has_key? province
+    #  RW[province]
+    #elsif RW.has_value? province
+    #  RW.key province
+    #else
+    #  nil
+    #end
   end
 end
 

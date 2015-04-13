@@ -12,26 +12,20 @@ describe Rwanda do
   # Singular Ofs
   
   describe '.district_of' do
-    let(:input) { 'Jali' }
-    let(:output) { r.district_of(input) }
-    let(:wrong_in) { 'Foobar' }
-    let(:wrong_out) { r.district_of(wrong_in) }
-  
     it 'knows the distict of a sector' do
-      expect(output).to eq 'Gasabo'
-      expect(wrong_out).to eq nil
+      expect(r.district_of('Jali')).to eq 'Gasabo'
+      expect(r.district_of('jAlI')).to eq 'Gasabo'
+      
+      expect(r.district_of('Foobar')).to eq nil
     end
   end
   
   describe '.province_of' do
-    let(:input) { 'Gasabo' }
-    let(:output) { r.province_of(input) }
-    let(:wrong_in) { 'Foobar' }
-    let(:wrong_out) { r.province_of(wrong_in) }
-    
-    it 'knows the province of a district' do 
-      expect(output).to eq 'Kigali City'
-      expect(wrong_out).to eq nil
+    it 'knows the province of a district, and can return it in Kinyarwanda' do 
+      expect(r.province_of('gaSABO')).to eq 'Kigali City'
+      expect(r.province_of('Foobar')).to eq nil
+      expect(r.province_of('gaSABO', true)).to eq 'Umujyi wa Kigali'
+      expect(r.province_of('Foobar')).to eq nil
     end
   end
   
@@ -40,16 +34,15 @@ describe Rwanda do
   describe '.districts_of' do
     it 'knows all the districts of each province' do
       expect(r.districts_of('Kigali City').sort).to eq ["Gasabo", "Kicukiro", "Nyarugenge"].sort
+      expect(r.districts_of('kigali city').sort).to eq ["Gasabo", "Kicukiro", "Nyarugenge"].sort
       expect(r.districts_of('Foobar')).to eq nil
     end
   end
   
   describe '.sectors_of' do
-    let(:input) { 'Gasabo' }
-    let(:output) { r.sectors_of(input) }
     
     it 'knows all the sectors of a district' do
-      expect(output.sort).to eq [ 'Bumbogo', 'Gatsata', 'Gikomero', 'Gisozi', 'Jabana', 'Jali', 'Kacyiru', 'Kimihurura', 'Kimironko', 'Kinyinya', 'Ndera', 'Nduba', 'Remera', 'Rusororo', 'Rutunga' ].sort
+      expect(r.sectors_of('GasABO').sort).to eq [ 'Bumbogo', 'Gatsata', 'Gikomero', 'Gisozi', 'Jabana', 'Jali', 'Kacyiru', 'Kimihurura', 'Kimironko', 'Kinyinya', 'Ndera', 'Nduba', 'Remera', 'Rusororo', 'Rutunga' ].sort
       expect(r.sectors_of('Foobar')).to eq nil
     end
   end
@@ -60,22 +53,22 @@ describe Rwanda do
     it 'knows all the cells of a sector' do
       # Nyagatare,Mimuri,Mahoro,Rubumba
       expect(r.cells_of('Nyagatare', 'Mimuri')).to eq ['Bibare', 'Gakoma', 'Mahoro', 'Mimuri', 'Rugari']
+      expect(r.cells_of('nyagatare', 'MIMURI')).to eq ['Bibare', 'Gakoma', 'Mahoro', 'Mimuri', 'Rugari']
     end
   end
   
   describe '.villages_of' do
     it 'knows all the villages of a cell' do
       expect(r.villages_of('Ruhango', 'Ruhango', 'Gikoma')).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']
+      expect(r.villages_of('RuhANgo', 'RUHANGO', 'GIKOMA')).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']
     end
   end
   
   # Lists
   
   describe '.provinces' do
-    let(:output) { r.provinces }
-    
     it 'can list the provinces of Rwanda' do
-      expect(output.sort).to eq ["Kigali City", "Western Province", "Northern Province", "Southern Province", "Eastern Province"].sort
+      expect(r.provinces.sort).to eq ["Kigali City", "Western Province", "Northern Province", "Southern Province", "Eastern Province"].sort
     end
   end
   
@@ -88,12 +81,8 @@ describe Rwanda do
   end
   
   describe '.sectors' do
-    #let (:output) { r.sectors }
-    
       it 'can list the sectors of Rwanda' do
       expect(r.sectors.count).to eq 416
-      #expect(r.sectors.sort).to eq SECTORS
-      #expect(SECTORS - r.sectors).to eq []
       r.sectors.each_with_index do |s,i|
         expect(s).to eq SECTORS[i]
       end
@@ -105,6 +94,7 @@ describe Rwanda do
   describe '.[division]_like' do
     it 'can offer suggestions for mis-typed provinces' do
       expect(r.province_like('Westrun Provinc')).to eq 'Western Province'
+      expect(r.province_like('westrun provinc')).to eq 'Western Province'
     end
     it 'can offer suggestions for mis-typed districts' do
       expect(r.district_like('Gasabu')).to eq 'Gasabo'
@@ -117,7 +107,7 @@ describe Rwanda do
   # Testing
   
   describe '.is_[division]?' do
-    it 'knows whether a division exists' do
+    it 'knows whether a division exists, even if the case is wrong' do
       expect(r.is_district? 'Karongi').to eq true
       expect(r.is_sector? 'Gashari').to eq true
       expect(r.is_cell? 'Musasa').to eq true
@@ -126,16 +116,48 @@ describe Rwanda do
       expect(r.is_sector? 'Gashariii').to eq false
       expect(r.is_cell? 'Musasasasasa').to eq false
       expect(r.is_village? 'Kaduhahaha').to eq false
+
+      expect(r.is_district? 'karongi').to eq true
+      expect(r.is_sector? 'gashari').to eq true
+      expect(r.is_cell? 'musasa').to eq true
+      expect(r.is_village? 'kaduha').to eq true
+      expect(r.is_district? 'karoooongi').to eq false
+      expect(r.is_sector? 'gashariii').to eq false
+      expect(r.is_cell? 'musasasasasa').to eq false
+      expect(r.is_village? 'kaduhahaha').to eq false
     end
   end
   
-  describe '.is_real' do
-    it 'knows whether a chain of divisions is legitimate' do
+  describe '.exist?' do
+    it 'knows whether a chain of divisions is legitimate, case insensitively' do
       expect(r.exist?('Karongi','Bwishyura','Kiniha','Nyarurembo')).to eq true
       expect(r.exist?('Karongi','Bwishyura','Nyarurembo')).to eq false
       expect(r.exist?('Karongi')).to eq true
+
+      expect(r.exist?('karongi','bwishyura','kiniha','nyarurembo')).to eq true
+      expect(r.exist?('karongi','bwishyura','nyarurembo')).to eq false
+      expect(r.exist?('karongi')).to eq true
     end
   end
+  
+  describe '.translate' do
+    it 'can translate a province from English to Kinyarwanda' do
+      expect(r.translate('Northern Province')).to eq 'Amajyaruguru'
+      expect(r.translate('Southern Province')).to eq 'Amajyepfo'
+      expect(r.translate('eastern province')).to eq 'Iburasirazuba'
+      expect(r.translate('WESTERN PROVINCE')).to eq 'Iburengerazuba'
+      expect(r.translate('Kigali City')).to eq 'Umujyi wa Kigali'
+      expect(r.translate('foobar')).to eq nil
+    end
+    it 'can translate a province from Kinyarwanda to English' do
+      expect(r.translate('Amajyaruguru')).to eq 'Northern Province'
+      expect(r.translate('AmajyePFO')).to eq 'Southern Province'
+      expect(r.translate('Iburasirazuba')).to eq 'Eastern Province'
+      expect(r.translate('Iburengerazuba')).to eq 'Western Province'
+      expect(r.translate('umujyi wa kigali')).to eq 'Kigali City'
+    end
+  end
+    
   #describe '.is_in?' do
   #  it 'knows whether a smaller division is inside a larger division' do
   #    expect(r.is_in?('Karongi','Gashari')).to eq true
