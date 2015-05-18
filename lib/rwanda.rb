@@ -74,7 +74,19 @@ class Rwanda
   end
   def villages_of(district, sector, cell)
     @villages.select {|v| v.district.downcase == district.downcase and v.sector.downcase == sector.downcase and v.cell.downcase == cell.downcase}.collect {|v| v.village}
-  end    
+  end
+  def subdivisions_of(arr)
+    case arr.length
+      when 1
+        sectors_of *arr
+      when 2
+        cells_of *arr
+      when 3
+        villages_of *arr
+      else
+        raise "subdivisions_of requires an array of between 1 and 3 elements (do NOT include a province)"
+    end
+  end
   # )) Lists ((
   def provinces; @villages.collect{|v| v.province}.uniq; end
   def districts; @villages.collect{|v| v.district}.uniq; end
@@ -107,9 +119,9 @@ class Rwanda
       @villages.any? {|v| v.send(division).downcase == argument.downcase}
     end
   end
-  def exist?(district, sector=false, cell=false, village=false)
+  def exist?(district=false, sector=false, cell=false, village=false)
     villages = @villages.dup
-    return false unless district
+    return nil unless district
     {district: district, sector: sector, cell: cell, village: village}.each_pair do |division_name,division|
       #binding.pry
       return true unless division

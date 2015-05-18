@@ -64,6 +64,13 @@ describe Rwanda do
     end
   end
   
+  describe '.subdivisions_of' do
+    it 'knows the sub-divisions of a district, sector or cell' do
+      expect(r.subdivisions_of(['Ruhango', 'Ruhango', 'Gikoma'])).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']
+      expect(r.subdivisions_of(['RuhANgo', 'RUHANGO', 'GIKOMA'])).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']    
+    end
+  end
+  
   # Lists
   
   describe '.provinces' do
@@ -155,6 +162,13 @@ describe Rwanda do
       expect(r.translate('Iburasirazuba')).to eq 'Eastern Province'
       expect(r.translate('Iburengerazuba')).to eq 'Western Province'
       expect(r.translate('umujyi wa kigali')).to eq 'Kigali City'
+    end
+  end
+  
+  describe '.where_is' do
+    it 'can list all of the divisions by a certain name' do
+      expect(r.where_is 'ndego').to eq "There is 1 sector and 1 cell called Ndego\n  Ndego is a sector in Kayonza, Eastern Province\n  Ndego is a cell in Karama, Nyagatare, Eastern Province\n"
+      expect(r.where_is 'Foobar').to eq false
     end
   end
     
