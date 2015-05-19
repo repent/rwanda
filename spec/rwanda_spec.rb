@@ -165,10 +165,10 @@ describe Rwanda do
     end
   end
   
-  describe '.where_is' do
+  describe '.where_is?' do
     it 'can list all of the divisions by a certain name' do
-      expect(r.where_is 'ndego').to eq "There is 1 sector and 1 cell called Ndego\n  Ndego is a sector in Kayonza, Eastern Province\n  Ndego is a cell in Karama, Nyagatare, Eastern Province\n"
-      expect(r.where_is 'Foobar').to eq false
+      expect(r.where_is? 'ndego').to eq "Rwanda has 1 district, 1 sector, 1 cell, and 0 villages called Ndego:\n  Ndego is a sector in Kayonza\n  Ndego is a cell in Karama, Nyagatare\n  Ndego is a village in Ndego, Karama, Nyagatare\n"
+      expect(r.where_is? 'Foobar').to eq "Rwanda has no divisions called Foobar\n"
     end
   end
     
@@ -179,4 +179,5 @@ describe Rwanda do
   #    expect(r.is_in?('
   #  end
   #end
+
 end

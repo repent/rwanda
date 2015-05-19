@@ -26,6 +26,19 @@ class Village
   def to_s
     "#{@province}/#{@district}/#{@sector}/#{@cell}/#{@village}"
   end
+  def match(str)
+    matches = []
+    Rwanda::DIVISIONS.each do |div|
+      if str.downcase == self.send(div).downcase
+        matches.push div
+      end
+    end
+    matches
+  end
+  def [](n)
+    raise "Division index #{n} out of range!  Permitted indices 0 (province) to 4 (village)"
+    self.send(Rwanda.DIVISIONS[n])
+  end
 end
 
 class Rwanda
@@ -84,9 +97,13 @@ class Rwanda
       when 3
         villages_of *arr
       else
-        raise "subdivisions_of requires an array of between 1 and 3 elements (do NOT include a province)"
+        raise "subdivisions_of requires an array of between 1 and 3 elements (do NOT include a province): received #{arr}"
     end
   end
+  # )) Calleds ((
+  #def districts_called(district)
+  #  @villages
+  #end
   # )) Lists ((
   def provinces; @villages.collect{|v| v.province}.uniq; end
   def districts; @villages.collect{|v| v.district}.uniq; end
@@ -130,6 +147,7 @@ class Rwanda
     end
     true    
   end
+  def exists?(*p); exist?(*p); end
   
   # )) Translation ((
   def translate(province)
@@ -145,6 +163,53 @@ class Rwanda
     #else
     #  nil
     #end
+  end
+  
+  # )) Where is...? ((
+  def where_is?(division)
+    matching = { province: [], district: [], sector: [], cell: [], village: [] }
+    lines = []
+    @villages.each do |village|
+      matches = village.match(division)
+      unless matches.empty?
+        matches.each do |match|
+          matching[match].push village
+          # convert villages into lines
+          case match
+            when :district
+              lines << '  ' + village.district + " is a district"
+            when :sector
+              lines << '  ' + village.sector + " is a sector in " + village.district
+            when :cell
+              lines << '  ' + village.cell + " is a cell in " + village.sector + ", " + village.district
+            when :village
+              lines << '  ' + village.village + " is a village in " + [ village.cell, village.sector, village.district ].join(', ')
+          end
+        end
+      end
+    end
+    lines.uniq!
+    #counts = matching.inject({}) {|h,(k,v)| h[k] = d.count; h }
+    output = ''
+    
+    # summary line
+    if lines.empty?
+      output += "Rwanda has no divisions called #{division.capitalize}\n"
+    else
+      output += 'Rwanda has'
+      n = []
+      comma = ''
+      (0..3).each do |i|
+        n = lines.count { |l| l.count(',') == i }
+        output << "#{comma} #{i == 3 ? 'and ' : ''}#{n} #{Rwanda::DIVISIONS[i+1]}#{n == 1 ? '' : 's'}"
+        comma = ','
+      end
+      output << " called #{division.capitalize}:\n"
+    end
+    
+    # detail
+    lines.each { |line| output << line << "\n" }
+    output 
   end
 end
 
