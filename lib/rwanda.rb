@@ -209,7 +209,7 @@ class Rwanda
     
     # detail
     lines.each { |line| output << line << "\n" }
-    output 
+    puts output
   end
 end
 

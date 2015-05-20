@@ -144,6 +144,10 @@ describe Rwanda do
       expect(r.exist?('karongi','bwishyura','kiniha','nyarurembo')).to eq true
       expect(r.exist?('karongi','bwishyura','nyarurembo')).to eq false
       expect(r.exist?('karongi')).to eq true
+
+      # .exists? is an acceptable synonym
+      expect(r.exists?('Karongi','Bwishyura','Kiniha','Nyarurembo')).to eq true
+      expect(r.exists?('karongi')).to eq true
     end
   end
   
@@ -167,8 +171,10 @@ describe Rwanda do
   
   describe '.where_is?' do
     it 'can list all of the divisions by a certain name' do
-      expect(r.where_is? 'ndego').to eq "Rwanda has 1 district, 1 sector, 1 cell, and 0 villages called Ndego:\n  Ndego is a sector in Kayonza\n  Ndego is a cell in Karama, Nyagatare\n  Ndego is a village in Ndego, Karama, Nyagatare\n"
-      expect(r.where_is? 'Foobar').to eq "Rwanda has no divisions called Foobar\n"
+      expect(STDOUT).to receive(:puts).with("Rwanda has 1 district, 1 sector, 1 cell, and 0 villages called Ndego:\n  Ndego is a sector in Kayonza\n  Ndego is a cell in Karama, Nyagatare\n  Ndego is a village in Ndego, Karama, Nyagatare\n")
+      r.where_is? 'ndego'
+      expect(STDOUT).to receive(:puts).with("Rwanda has no divisions called Foobar\n")
+      r.where_is? 'Foobar'
     end
   end
     
@@ -179,5 +185,4 @@ describe Rwanda do
   #    expect(r.is_in?('
   #  end
   #end
-
 end
