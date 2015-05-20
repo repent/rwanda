@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+ * Add .where_is? to enable fast general queries of the dataset
+ * allow .exists? as a synonym of .exist?
+
 ## 0.4.0
  * Add case-insensitivity to all division lookups (#1)
  * Add translation of province names between English and Kinyarwanda
