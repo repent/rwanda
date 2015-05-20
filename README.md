@@ -67,7 +67,7 @@ If you are not familiar with this data set, it's worth noting the following feat
  * sector, cell and village names are often repeated: two sectors in different districts may have the same name, or a sector, cell and village may all have the same name
  * cells and villages may be named after the sectors and cells that they are in
  * at the cell or village level, there may be multiple villages with the same name, differentiated by a number (in roman numerals) e.g. Matimba cell has seven "Umudugudu Wa"s
- * you might find where_is? helpful for inspecting ambiguity: it lists all divisions at all levels that share the name you give it
+ * you might find where_is? helpful for inspecting ambiguity: it lists all divisions at all levels that share the name you give it (try "rw.where_is? 'Gatsibo'")
 
 ## Contributing
 

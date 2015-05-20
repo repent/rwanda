@@ -36,8 +36,8 @@ class Village
     matches
   end
   def [](n)
-    raise "Division index #{n} out of range!  Permitted indices 0 (province) to 4 (village)"
-    self.send(Rwanda.DIVISIONS[n])
+    raise "Division index #{n} out of range!  Permitted indices 0 (province) to 4 (village)" unless (0..4).include? n
+    self.send(Rwanda::DIVISIONS[n])
   end
 end
 
@@ -172,24 +172,20 @@ class Rwanda
     @villages.each do |village|
       matches = village.match(division)
       unless matches.empty?
-        matches.each do |match|
-          matching[match].push village
+        matches.each do |div|
+          matching[div].push village
           # convert villages into lines
-          case match
-            when :district
-              lines << '  ' + village.district + " is a district"
-            when :sector
-              lines << '  ' + village.sector + " is a sector in " + village.district
-            when :cell
-              lines << '  ' + village.cell + " is a cell in " + village.sector + ", " + village.district
-            when :village
-              lines << '  ' + village.village + " is a village in " + [ village.cell, village.sector, village.district ].join(', ')
+          new_line = "  #{village.send(div)} is a #{div}#{' in' unless div==:province}"
+          unless div == :province
+            (0...Rwanda::DIVISIONS.index(div)).to_a.reverse.each do |n|
+              new_line << " #{village[n]}#{' '+Rwanda::DIVISIONS[n].to_s.capitalize+',' unless n==0}"
+            end
           end
+          lines << new_line
         end
       end
     end
     lines.uniq!
-    #counts = matching.inject({}) {|h,(k,v)| h[k] = d.count; h }
     output = ''
     
     # summary line

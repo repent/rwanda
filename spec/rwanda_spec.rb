@@ -171,13 +171,13 @@ describe Rwanda do
   
   describe '.where_is?' do
     it 'can list all of the divisions by a certain name' do
-      expect(STDOUT).to receive(:puts).with("Rwanda has 1 district, 1 sector, 1 cell, and 0 villages called Ndego:\n  Ndego is a sector in Kayonza\n  Ndego is a cell in Karama, Nyagatare\n  Ndego is a village in Ndego, Karama, Nyagatare\n")
+      expect(STDOUT).to receive(:puts).with("Rwanda has 0 districts, 1 sector, 1 cell, and 1 village called Ndego:\n  Ndego is a sector in Kayonza District, Eastern Province\n  Ndego is a cell in Karama Sector, Nyagatare District, Eastern Province\n  Ndego is a village in Ndego Cell, Karama Sector, Nyagatare District, Eastern Province\n")
       r.where_is? 'ndego'
       expect(STDOUT).to receive(:puts).with("Rwanda has no divisions called Foobar\n")
       r.where_is? 'Foobar'
     end
   end
-    
+  
   #describe '.is_in?' do
   #  it 'knows whether a smaller division is inside a larger division' do
   #    expect(r.is_in?('Karongi','Gashari')).to eq true

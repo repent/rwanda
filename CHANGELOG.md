@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.2
+ * Fix serious bug in .where_is? that gave incorrect information
+
 ## 0.5.0
  * Add .where_is? to enable fast general queries of the dataset
  * allow .exists? as a synonym of .exist?
