@@ -1,47 +1,20 @@
 #!/usr/bin/env ruby
 
+require 'rwanda/array'
 require 'rwanda/version'
-#require 'rwanda/data'
+require 'rwanda/village'
+require 'rwanda/location'
+
+require 'singleton'
 require 'fuzzy_match'
 require 'csv'
 require 'pry'
 
 DATA = File.join(File.dirname(File.expand_path(__FILE__)), 'rwanda/data.csv')
 
-class Array
-  def select_first
-    self.each do |el|
-      return el if yield(el)
-    end
-    nil
-  end
-end
-
-class Village
-  attr_accessor :province, :district, :sector, :cell, :village
-  
-  def initialize(row)
-    @province,@district,@sector,@cell,@village=row['province'],row['district'],row['sector'],row['cell'],row['village']
-  end
-  def to_s
-    "#{@province}/#{@district}/#{@sector}/#{@cell}/#{@village}"
-  end
-  def match(str)
-    matches = []
-    Rwanda::DIVISIONS.each do |div|
-      if str.downcase == self.send(div).downcase
-        matches.push div
-      end
-    end
-    matches
-  end
-  def [](n)
-    raise "Division index #{n} out of range!  Permitted indices 0 (province) to 4 (village)" unless (0..4).include? n
-    self.send(Rwanda::DIVISIONS[n])
-  end
-end
-
 class Rwanda
+  include Singleton
+  
   attr_accessor :villages
   DIVISIONS=[:province,:district,:sector,:cell,:village]
   RW = {
@@ -90,6 +63,8 @@ class Rwanda
   end
   def subdivisions_of(arr)
     case arr.length
+      when 0
+        districts
       when 1
         sectors_of *arr
       when 2
@@ -97,7 +72,7 @@ class Rwanda
       when 3
         villages_of *arr
       else
-        raise "subdivisions_of requires an array of between 1 and 3 elements (do NOT include a province): received #{arr}"
+        raise "subdivisions_of requires an array of between 0 and 3 elements (do NOT include a province): received #{arr}"
     end
   end
   # )) Calleds ((

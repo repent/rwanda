@@ -7,7 +7,7 @@ OLD_SECTORS=['Base', 'Bigogwe', 'Boneza', 'Bugarama', 'Bugeshi', 'Bukure', 'Bumb
 SECTORS=['Base', 'Bigogwe', 'Boneza', 'Bugarama', 'Bugeshi', 'Bukure', 'Bumbogo', 'Bungwe', 'Burega', 'Buruhukiro', 'Busanze', 'Busasamana', 'Busasamana', 'Busengo', 'Bushekeri', 'Bushenge', 'Bushoki', 'Busogo', 'Busoro', 'Butare', 'Butaro', 'Buyoga', 'Bweramana', 'Bweyeye', 'Bwira', 'Bwishyura', 'Bwisige', 'Byimana', 'Byumba', 'Coko', 'Cyabakamyi', 'Cyabingo', 'Cyahinda', 'Cyanika', 'Cyanika', 'Cyanzarwe', 'Cyato', 'Cyeru', 'Cyeza', 'Cyinzuzi', 'Cyumba', 'Cyungo', 'Cyuve', 'Fumbwe', 'Gacaca', 'Gacurabwenge', 'Gahanga', 'Gahara', 'Gahengeri', 'Gahini', 'Gahunga', 'Gakenke', 'Gasaka', 'Gasange', 'Gashaki', 'Gashanda', 'Gashari', 'Gashenyi', 'Gashonga', 'Gashora', 'Gataraga', 'Gatare', 'Gatebe', 'Gatenga', 'Gatore', 'Gatsata', 'Gatsibo', 'Gatumba', 'Gatunda', 'Gihango', 'Giheke', 'Gihombo', 'Gihundwe', 'Gikomero', 'Gikondo', 'Gikonko', 'Gikundamvura', 'Gisenyi', 'Gishali', 'Gishamvu', 'Gishubi', 'Gishyita', 'Gisozi', 'Gitambi', 'Gitega', 'Gitesi', 'Giti', 'Gitoki', 'Gitovu', 'Hindiro', 'Huye', 'Jabana', 'Jali', 'Janja', 'Jarama', 'Jenda', 'Jomba', 'Juru', 'Kabacuzi', 'Kabagali', 'Kabare', 'Kabarondo', 'Kabarore', 'Kabatwa', 'Kabaya', 'Kacyiru', 'Kaduha', 'Kagano', 'Kagarama', 'Kageyo', 'Kageyo', 'Kageyo', 'Kagogo', 'Kamabuye', 'Kamegeri', 'Kamembe', 'Kamubuga', 'Kanama', 'Kaniga', 'Kanjongo', 'Kanombe', 'Kansi', 'Kanyinya', 'Kanzenze', 'Karago', 'Karama', 'Karama', 'Karama', 'Karambi', 'Karambo', 'Karangazi', 'Karembo', 'Karenge', 'Karengera', 'Katabagemu', 'Kavumu', 'Kayenzi', 'Kayumbu', 'Kazo', 'Kibangu', 'Kibeho', 'Kibilizi', 'Kibirizi', 'Kibirizi', 'Kibumbwe', 'Kibungo', 'Kicukiro', 'Kigabiro', 'Kigali', 'Kigarama', 'Kigarama', 'Kigembe', 'Kigeyo', 'Kigina', 'Kigoma', 'Kigoma', 'Kimihurura', 'Kimironko', 'Kimisagara', 'Kimonyi', 'Kinazi', 'Kinazi', 'Kinigi', 'Kinihira', 'Kinihira', 'Kinoni', 'Kintobo', 'Kinyababa', 'Kinyinya', 'Kiramuruzi', 'Kirehe', 'Kirimbi', 'Kisaro', 'Kitabi', 'Kivu', 'Kivumu', 'Kivuruga', 'Kivuye', 'Kiyombe', 'Kiyumba', 'Kiziguro', 'Macuba', 'Mageregere', 'Mahama', 'Mahembe', 'Mamba', 'Manihira', 'Manyagiro', 'Maraba', 'Mareba', 'Masaka', 'Masoro', 'Mata', 'Mataba', 'Matimba', 'Matyazo', 'Mayange', 'Mbazi', 'Mbazi', 'Mbogo', 'Mbuye', 'Mimuri', 'Minazi', 'Miyove', 'Mpanga', 'Mubuga', 'Mudende', 'Mugano', 'Muganza', 'Muganza', 'Muganza', 'Mugesera', 'Mugina', 'Mugombwa', 'Mugunga', 'Muhanda', 'Muhanga', 'Muhazi', 'Muhima', 'Muhondo', 'Muhororo', 'Muhoza', 'Muhura', 'Mukama', 'Mukamira', 'Mukarange', 'Mukarange', 'Mukindo', 'Mukingo', 'Muko', 'Muko', 'Mukura', 'Mukura', 'Munini', 'Munyaga', 'Munyiginya', 'Murama', 'Murama', 'Murambi', 'Murambi', 'Murambi', 'Muringa', 'Murunda', 'Murundi', 'Murundi', 'Mururu', 'Musambira', 'Musange', 'Musanze', 'Musasa', 'Musaza', 'Musebeya', 'Musenyi', 'Musha', 'Musha', 'Musheri', 'Mushikiri', 'Mushishiro', 'Mushonyi', 'Mushubati', 'Mushubi', 'Mutenderi', 'Mutete', 'Mutuntu', 'Muyira', 'Muyongwe', 'Muyumbu', 'Muzo', 'Mwendo', 'Mwiri', 'Mwogo', 'Mwulire', 'Nasho', 'Ndaro', 'Ndego', 'Ndera', 'Ndora', 'Nduba', 'Nemba', 'Nemba', 'Ngamba', 'Ngarama', 'Ngera', 'Ngeruka', 'Ngoma', 'Ngoma', 'Ngoma', 'Ngororero', 'Niboye', 'Nkanka', 'Nkomane', 'Nkombo', 'Nkotsi', 'Nkungu', 'Ntarabana', 'Ntarama', 'Ntongwe', 'Ntyazo', 'Nyabimata', 'Nyabinoni', 'Nyabirasi', 'Nyabitekeri', 'Nyagatare', 'Nyagihanga', 'Nyagisozi', 'Nyagisozi', 'Nyakabanda', 'Nyakabuye', 'Nyakaliro', 'Nyakarenzo', 'Nyakiriba', 'Nyamabuye', 'Nyamata', 'Nyamirama', 'Nyamirambo', 'Nyamiyaga', 'Nyamiyaga', 'Nyamugari', 'Nyamyumba', 'Nyange', 'Nyange', 'Nyankenke', 'Nyanza', 'Nyarubaka', 'Nyarubuye', 'Nyarugenge', 'Nyarugenge', 'Nyarugunga', 'Nyarusange', 'Nyundo', 'Nzahaha', 'Nzige', 'Rambura', 'Rangiro', 'Remera', 'Remera', 'Remera', 'Remera', 'Rilima', 'Rongi', 'Rubavu', 'Rubaya', 'Rubengera', 'Rubona', 'Rugabano', 'Ruganda', 'Rugarama', 'Rugarama', 'Rugarika', 'Rugendabari', 'Rugengabari', 'Rugera', 'Rugerero', 'Ruhango', 'Ruhango', 'Ruharambuga', 'Ruhashya', 'Ruheru', 'Ruhuha', 'Ruhunde', 'Rukara', 'Rukira', 'Rukoma', 'Rukomo', 'Rukomo', 'Rukozo', 'Rukumberi', 'Ruli', 'Runda', 'Ruramba', 'Ruramira', 'Rurembo', 'Rurenge', 'Rusarabuye', 'Rusasa', 'Rusatira', 'Rusebeya', 'Rusenge', 'Rushaki', 'Rushashi', 'Rusiga', 'Rusororo', 'Rutare', 'Rutunga', 'Ruvune', 'Rwabicuma', 'Rwamiko', 'Rwaniro', 'Rwankuba', 'Rwaza', 'Rwempasha', 'Rwerere', 'Rweru', 'Rwezamenyo', 'Rwimbogo', 'Rwimbogo', 'Rwimiyaga', 'Rwinkwavu', 'Sake', 'Save', 'Shangasha', 'Shangi', 'Shingiro', 'Shyara', 'Shyira', 'Shyogwe', 'Shyorongi', 'Simbi', 'Sovu', 'Tabagwe', 'Tare', 'Tumba', 'Tumba', 'Twumba', 'Uwinkingi', 'Zaza'].sort
 
 describe Rwanda do
-  r = Rwanda.new
+  r = Rwanda.instance
   
   # Singular Ofs
   
@@ -175,6 +175,31 @@ describe Rwanda do
       r.where_is? 'ndego'
       expect(STDOUT).to receive(:puts).with("Rwanda has no divisions called Foobar\n")
       r.where_is? 'Foobar'
+    end
+  end
+  
+  district = Location.new 'Karongi'
+  sector = Location.new 'Karongi','Bwishyura'
+  cell = Location.new 'Karongi','Bwishyura','Kiniha'
+  village = Location.new 'Karongi','Bwishyura','Kiniha','Nyarurembo'
+
+  describe '.top, .bottom, upto, downto' do
+    it 'can list the divisions up or down to a certain level' do
+      expect(village.top(1)).to eq ['Karongi']
+      expect(village.top(3)).to eq ['Karongi','Bwishyura','Kiniha']
+      expect(village.bottom(1)).to eq ['Nyarurembo']
+      expect(sector.bottom(1)).to eq []
+      expect(village.upto(:sector)).to eq ['Bwishyura','Kiniha','Nyarurembo'].reverse
+      expect(village.downto(:sector)).to eq ['Karongi','Bwishyura']
+    end
+  end
+  
+  describe 'Location.index_of' do
+    it 'can convert a division name into a number' do
+      expect(Location.index_of(:district)).to eq 1
+      expect(Location.index_of(:sector)).to eq 2
+      expect(Location.index_of(:cell)).to eq 3
+      expect(Location.index_of(:village)).to eq 4
     end
   end
   
