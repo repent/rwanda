@@ -42,7 +42,7 @@ rw.exist?('Karongi','Bwishyura','Kiniha','Nyarurembo')
 rw.exist?('Karongi','Bwishyura','Nyarurembo')
 ```
 
-Geographic information kindly provided by MINALOC.  There are some minor spelling differences between this data and other sources available at sector level (I have not had any other source to compare with at cell and village level).  In particular the following sectors seem to have alternative spellings:
+Geographic information kindly provided by [MINALOC](http://www.minaloc.gov.rw/).  There are some minor spelling differences between this data and other sources available at sector level (I have not had any other source to compare with at cell and village level).  In particular the following sectors seem to have alternative spellings:
 
 | This gem uses | Others may use |
 ----------------|-----------------

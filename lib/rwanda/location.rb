@@ -9,12 +9,16 @@ class Location < Struct.new(:district, :sector, :cell, :village)
     Rwanda.instance.exists? *divisions
   end
   def validate! # get rid of invalid data
+    # NOT WORKING BECAUSE CP! DOESN'T WORK
     #binding.pry
     each_with_index do |div, n|
-      unless Rwanda.instance.exists? *top(n+1)
-        return self.cp!(Location.new(*top(n)))
+      #binding.pry
+      unless Rwanda.instance.exists? *top(n+1, true)
+        cp!(Location.new(*top(n)))
+        return self
       end
     end
+    self
   end
   
   # from district down, always returning an n-element array if keep_nils is set
@@ -45,13 +49,20 @@ class Location < Struct.new(:district, :sector, :cell, :village)
     end
     false
   end
+  
+  def to_s
+    to_h.inject([]) { |r, (k,v)| r << "#{v} #{k.to_s.capitalize}" if v }.join(', ')
+  end
+
 
   private
-  def cp!(other) # copies other's attributes to self
-    self.division_names do |level|
-      self[:level] = other[:level]
-    end
-  end
+  # Useful but broken
+  #def cp!(other) # copies other's attributes to self
+  #  self.division_names do |level|
+  #    self[:level] = other[:level]
+  #  end
+  #  self
+  #end
   
   def validate_up_to(threshold, company)
     divisions = []
@@ -73,6 +84,7 @@ class Location < Struct.new(:district, :sector, :cell, :village)
     validate_up_to((DIVISIONS.index(division)-1), company)
   end
   
+  public
   # Class methods
   def self.index_of(division)
     members.index(division) + 1
