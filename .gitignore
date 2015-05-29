@@ -13,3 +13,4 @@
 *.a
 mkmf.log
 kigali-sez.txt
+.ruby-version

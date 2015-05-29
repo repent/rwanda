@@ -14,7 +14,7 @@ class Location < Struct.new(:district, :sector, :cell, :village)
     each_with_index do |div, n|
       #binding.pry
       unless Rwanda.instance.exists? *top(n+1, true)
-        cp!(Location.new(*top(n)))
+        duplicate!(Location.new(*top(n)))
         return self
       end
     end
@@ -50,10 +50,24 @@ class Location < Struct.new(:district, :sector, :cell, :village)
     false
   end
   
+  # present? and blank? are rails-only
+  # undefined what to do with a blank string -- it should never happen
+  
   def to_s
-    to_h.inject([]) { |r, (k,v)| r << "#{v} #{k.to_s.capitalize}" if v }.join(', ')
+    if present?
+      to_h.inject([]) { |r, (k,v)| r << "#{v} #{k.to_s.capitalize}" if v; r }.join(', ')
+    else
+      'Unknown'
+    end
   end
-
+  def blank?; !present?; end
+  def present?
+    if district.respond_to? :present? # defined in rails, which may be available
+      district.present?
+    else
+      !district.nil? && !district.empty?
+    end
+  end
 
   private
   # Useful but broken
@@ -64,25 +78,33 @@ class Location < Struct.new(:district, :sector, :cell, :village)
   #  self
   #end
   
-  def validate_up_to(threshold, company)
-    divisions = []
-    (0..threshold).each do |n|
-      divisions.push company.read_attribute(DIVISIONS[n]).to_s
+  def duplicate!(other)
+    # to_h first implemented in 2.0, but also seemingly provided by rails
+    other.to_h.each_pair do |k,v|
+      self[k] = v
     end
-    if divisions.blank? # no longer possible
-      true
-    else
-      logger.debug "validate_up_to #{threshold} #{divisions.join(',')}: #{Rw.exist?(*divisions).to_s}"
-      Rw.exist?(*divisions)
-    end
+    self
   end
-  def validate_this(division, company)
-    validate_up_to(DIVISIONS.index(division), company)
-  end
-  def validate_higher(division, company)
-    return true if division == :district
-    validate_up_to((DIVISIONS.index(division)-1), company)
-  end
+  
+  #def validate_up_to(threshold, company)
+  #  divisions = []
+  #  (0..threshold).each do |n|
+  #    divisions.push company.read_attribute(DIVISIONS[n]).to_s
+  #  end
+  #  if divisions.blank? # no longer possible
+  #    true
+  #  else
+  #    logger.debug "validate_up_to #{threshold} #{divisions.join(',')}: #{Rw.exist?(*divisions).to_s}"
+  #    Rw.exist?(*divisions)
+  #  end
+  #end
+  #def validate_this(division, company)
+  #  validate_up_to(DIVISIONS.index(division), company)
+  #end
+  #def validate_higher(division, company)
+  #  return true if division == :district
+  #  validate_up_to((DIVISIONS.index(division)-1), company)
+  #end
   
   public
   # Class methods
