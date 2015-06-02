@@ -24,6 +24,10 @@ Then you can try it on the command line:
     > gem 'rwanda'
     > require 'rwanda'
 
+## Status
+
+[![Gem Version](https://badge.fury.io/rb/rwanda.svg)](http://badge.fury.io/rb/rwanda)
+
 ## Usage
 
 ```ruby

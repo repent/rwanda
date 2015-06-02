@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0
+
+ * Add .valid? because the Rails interface needs to accept an empty location as being "like" an .exist?ing one
+
 ## 0.6.0
 
  * Addition of Location class (moved out of rails app)

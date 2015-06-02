@@ -138,11 +138,22 @@ describe Rwanda do
 
       expect(r.exist?('karongi','bwishyura','kiniha','nyarurembo')).to eq true
       expect(r.exist?('karongi','bwishyura','nyarurembo')).to eq false
+      expect(r.exist?(nil,nil,'',nil)).to eq false
       expect(r.exist?('karongi')).to eq true
 
       # .exists? is an acceptable synonym
       expect(r.exists?('Karongi','Bwishyura','Kiniha','Nyarurembo')).to eq true
       expect(r.exists?('karongi')).to eq true
+    end
+  end
+  
+  describe '.valid?' do
+    it 'knows whether a chain of divisions is valid, which an empty set is' do
+      expect(r.valid?('Karongi','Bwishyura','Kiniha','Nyarurembo')).to eq true
+      expect(r.valid?(nil,nil,nil)).to eq true
+      
+      expect(r.valid?('Karongi','Bwishyura','Nyarurembo')).to eq false
+      expect(r.valid?(nil,nil,'',nil)).to eq false
     end
   end
   

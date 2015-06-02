@@ -113,7 +113,7 @@ class Rwanda
   end
   def exist?(district=false, sector=false, cell=false, village=false)
     villages = @villages.dup
-    return nil unless district
+    return false unless district
     {district: district, sector: sector, cell: cell, village: village}.each_pair do |division_name,division|
       #binding.pry
       return true unless division
@@ -123,6 +123,11 @@ class Rwanda
     true    
   end
   def exists?(*p); exist?(*p); end
+  def valid?(*p)
+    # Is this location either (a) real, or (b) nil (both of which are valid if an object's address can be null)
+    return true if p.reject{|i| i.nil?}.empty? # all nils is fine
+    exist? *p
+  end
   
   # )) Translation ((
   def translate(province)
