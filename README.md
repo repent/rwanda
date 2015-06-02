@@ -27,7 +27,7 @@ Then you can try it on the command line:
 ## Usage
 
 ```ruby
-rw = Rwanda.new
+rw = Rwanda.instance
 rw.where_is? 'Gasabo'
 rw.provinces
 rw.sectors_of 'Gasabo'

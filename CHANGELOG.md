@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+ * Addition of Location class (moved out of rails app)
+ * Separation of rails components in separate gem
+ * Conversion to singleton to reduce load times in some circumstances
+ * Improved test environment (catching up with code)
+
 ## 0.5.2
  * Fix serious bug in .where_is? that gave incorrect information
 
