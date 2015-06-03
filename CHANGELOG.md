@@ -1,8 +1,13 @@
 # Changelog
 
+## 0.7.2
+
+ * Add Coveralls and Travis CI
+ * Remove pretence at support for 1.9.3 (gem depends on to_h for Struct)
+
 ## 0.7.1
 
-  * Fix error in Location calling exist? instead of valid? and update tests
+ * Fix error in Location calling exist? instead of valid? and update tests
 
 ## 0.7.0
 

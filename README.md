@@ -27,23 +27,50 @@ Then you can try it on the command line:
 ## Status
 
 [![Gem Version](https://badge.fury.io/rb/rwanda.svg)](http://badge.fury.io/rb/rwanda)
+[![Coverage Status](https://coveralls.io/repos/repent/rwanda/badge.svg)](https://coveralls.io/r/repent/rwanda)
+[![Build Status](https://travis-ci.org/repent/rwanda.svg?branch=master)](https://travis-ci.org/repent/rwanda)
+[![Code Climate](https://codeclimate.com/github/repent/rwanda/badges/gpa.svg)](https://codeclimate.com/github/repent/rwanda)
 
 ## Usage
 
 ```ruby
-rw = Rwanda.instance
-rw.where_is? 'Gasabo'
-rw.provinces
-rw.sectors_of 'Gasabo'
-rw.district_of 'Giheke'
-rw.sector_like 'Rukuma'
-rw.is_district? 'Karongi'
-rw.is_sector? 'Gashari'
-rw.is_cell? 'Musasa'
-rw.is_village? 'Kaduha'
-# Rwanda#exist?(district, sector, cell, village)
-rw.exist?('Karongi','Bwishyura','Kiniha','Nyarurembo')
-rw.exist?('Karongi','Bwishyura','Nyarurembo')
+[2] pry(main)> rw=Rwanda.instance
+=> #<Rwanda:0x007f00ea48cf28 ... >
+[3] pry(main)> rw.where_is? 'Gasabo'
+Rwanda has 1 district, 0 sectors, 1 cell, and 8 villages called Gasabo:
+  Gasabo is a village in Kimaranzara Cell, Rilima Sector, Bugesera District, Eastern Province
+  Gasabo is a village in Butiruka Cell, Remera Sector, Gatsibo District, Eastern Province
+  Gasabo is a village in Kiyovu Cell, Ndego Sector, Kayonza District, Eastern Province
+  Gasabo is a village in Nkondo Cell, Rwinkwavu Sector, Kayonza District, Eastern Province
+  Gasabo is a village in Kazizi Cell, Nyamugari Sector, Kirehe District, Eastern Province
+  Gasabo is a district in Kigali City
+  Gasabo is a cell in Rutunga Sector, Gasabo District, Kigali City
+  Gasabo is a village in Nyanza Cell, Gatenga Sector, Kicukiro District, Kigali City
+  Gasabo is a village in Kabeza Cell, Kanombe Sector, Kicukiro District, Kigali City
+  Gasabo is a village in Kabuguru II Cell, Rwezamenyo Sector, Nyarugenge District, Kigali City
+=> nil
+[4] pry(main)> rw.provinces
+=> ["Eastern Province", "Kigali City", "Northern Province", "Southern Province", "Western Province"]
+[5] pry(main)> rw.sectors_of 'Gasabo'
+=> ["Bumbogo", "Gatsata", "Gikomero", "Gisozi", "Jabana", "Jali", "Kacyiru", "Kimihurura", "Kimironko", "Kinyinya", "Ndera", "Nduba", "Remera", "Rusororo", "Rutunga"]
+[6] pry(main)> rw.district_of 'Giheke'
+=> "Rusizi"
+[7] pry(main)> rw.sector_like 'Rukuma'
+RuntimeError: can't modify frozen #<Class:#<Rwanda:0x007f00ea48cf28>>
+from /home/slack/vendor/bundle/gems/rwanda-0.7.1/lib/rwanda.rb:87:in `sectors'
+[8] pry(main)> rw.is_district? 'Karongi'
+=> true
+[9] pry(main)> rw.is_sector? 'Gashari'
+=> true
+[10] pry(main)> rw.is_cell? 'Musasa'
+=> true
+[11] pry(main)> rw.is_village? 'Kaduha'
+=> true
+[12] pry(main)> # Rwanda#exist?(district, sector, cell, village)
+[13] pry(main)> rw.exist?('Karongi','Bwishyura','Kiniha','Nyarurembo')
+=> true
+[14] pry(main)> rw.exist?('Karongi','Bwishyura','Nyarurembo')
+=> false
 ```
 
 Geographic information kindly provided by [MINALOC](http://www.minaloc.gov.rw/).  There are some minor spelling differences between this data and other sources available at sector level (I have not had any other source to compare with at cell and village level).  In particular the following sectors seem to have alternative spellings:
