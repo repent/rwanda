@@ -7,6 +7,7 @@ describe Location do
   village = Location.new 'Karongi','Bwishyura','Kiniha','Nyarurembo'
   none = Location.new
   invalid = Location.new 'Karongi', 'Kiniha', 'Bwishyura', 'Nyarurembo'
+  null = Location.new nil, nil, nil, nil
 
   describe '.top, .bottom, upto, downto' do
     it 'can list the divisions up or down to a certain level' do
@@ -31,6 +32,7 @@ describe Location do
   describe 'valid? and validate!' do
     it 'can tell if a location is valid, and clean invalid information' do
       expect(cell.valid?).to eq true
+      expect(null.valid?).to eq true
       expect(invalid.valid?).to eq false
       
       fixed = invalid.validate!

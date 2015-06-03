@@ -6,7 +6,7 @@ class Location < Struct.new(:district, :sector, :cell, :village)
   def n_divisions; divisions.count; end
   
   def valid? # is it valid?
-    Rwanda.instance.exists? *divisions
+    Rwanda.instance.valid? *divisions
   end
   def validate! # get rid of invalid data
     # NOT WORKING BECAUSE CP! DOESN'T WORK

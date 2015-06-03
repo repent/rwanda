@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.1
+
+  * Fix error in Location calling exist? instead of valid? and update tests
+
 ## 0.7.0
 
  * Add .valid? because the Rails interface needs to accept an empty location as being "like" an .exist?ing one
