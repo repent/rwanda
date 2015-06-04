@@ -152,6 +152,11 @@ class Rwanda
     #end
   end
   
+  # )) To help with testing ((
+  def first
+    @villages.first
+  end
+  
   # )) Where is...? ((
   def where_is?(division)
     matching = { province: [], district: [], sector: [], cell: [], village: [] }
