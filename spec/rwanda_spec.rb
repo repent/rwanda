@@ -189,5 +189,13 @@ describe Rwanda do
       r.where_is? 'Foobar'
     end
   end
+  
+  describe '#first' do
+    it 'can provide the first village in the list' do
+      row = {'province' => "Eastern Province", 'district' => "Bugesera", 'sector' => "Gashora", 'cell' => "Biryogo", 'village' => "Bidudu"}
+      v = Village.new(row)
+      expect(r.first).to eq v
+    end
+  end
 end  
   

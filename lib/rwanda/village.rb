@@ -20,7 +20,11 @@ class Village
     raise "Division index #{n} out of range!  Permitted indices 0 (province) to 4 (village)" unless (0..4).include? n
     self.send(Rwanda::DIVISIONS[n])
   end
-  def to_h(*options = [:province, :district, :sector, :cell, :village])
-    options.collect {|l| [ l, self[l] ] }.to_h
+  def to_h(*options)
+    options = [:province, :district, :sector, :cell, :village] if options.empty?
+    options.collect {|l| [ l, instance_variable_get("@#{l}") ] }.to_h
+  end
+  def ==(other)
+    to_h == other.to_h
   end
 end

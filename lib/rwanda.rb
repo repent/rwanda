@@ -67,6 +67,7 @@ class Rwanda
   end
   def villages_of(district, sector, cell)
     @villages.select {|v| v.district.downcase == district.downcase and v.sector.downcase == sector.downcase and v.cell.downcase == cell.downcase}.collect {|v| v.village}
+    #@villages.select {|v| v.to_h(:district, :sector, :cell).to_a.sort == { district: district, sector: sector, cell: cell }.to_a.collect{|v| [v[0],v[1].downcase] }.collect {|v| v.village}
   end
   def subdivisions_of(arr)
     case arr.length
@@ -111,7 +112,6 @@ class Rwanda
   end
   
   # )) Testing ((
-  #def is_province?(province); @villages.any? {|v| v.province == province}; end
   # is_division?
   DIVISIONS.each do |division|
     define_method("is_#{division}?") do |argument|
@@ -143,13 +143,6 @@ class Rwanda
     eng = RW.find { |eng,kin| kin.downcase == province.downcase }
     return eng[0] if eng
     nil
-    #if RW.has_key? province
-    #  RW[province]
-    #elsif RW.has_value? province
-    #  RW.key province
-    #else
-    #  nil
-    #end
   end
   
   # )) To help with testing ((
@@ -159,25 +152,33 @@ class Rwanda
   
   # )) Where is...? ((
   def where_is?(division)
-    matching = { province: [], district: [], sector: [], cell: [], village: [] }
+    #matching = { province: [], district: [], sector: [], cell: [], village: [] }
     lines = []
     @villages.each do |village|
       matches = village.match(division)
       unless matches.empty?
         matches.each do |div|
-          matching[div].push village
-          # convert villages into lines
-          new_line = "  #{village.send(div)} is a #{div}#{' in' unless div==:province}"
-          unless div == :province
-            (0...Rwanda::DIVISIONS.index(div)).to_a.reverse.each do |n|
-              new_line << " #{village[n]}#{' '+Rwanda::DIVISIONS[n].to_s.capitalize+',' unless n==0}"
-            end
-          end
-          lines << new_line
+          #matching[div].push village
+          # convert each match into a line
+          lines << create_line(village, div)
         end
       end
     end
     lines.uniq!
+    print_result(lines, division)
+  end
+  
+  private
+  def create_line(village, div)
+    new_line = "  #{village.send(div)} is a #{div}#{' in' unless div==:province}"
+    unless div == :province
+      (0...Rwanda::DIVISIONS.index(div)).to_a.reverse.each do |n|
+        new_line << " #{village[n]}#{' '+Rwanda::DIVISIONS[n].to_s.capitalize+',' unless n==0}"
+      end
+    end
+    new_line
+  end
+  def print_result(lines, division)
     output = ''
     
     # summary line
