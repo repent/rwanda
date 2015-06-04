@@ -14,3 +14,4 @@
 mkmf.log
 kigali-sez.txt
 .ruby-version
+.~lock*

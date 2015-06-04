@@ -7,9 +7,15 @@ describe Rwanda do
   # Singular Ofs
   
   describe '.district_of' do
-    it 'knows the distict of a sector' do
+    it 'knows the distict(s) of a sector' do
+      # Unfortunately, there are multiple sectors with the same name in different districts
+      # so this cannot give a unique response all of the time
+      # e.g. Busasamana in Nyanza and Rubavu
       expect(r.district_of('Jali')).to eq 'Gasabo'
       expect(r.district_of('jAlI')).to eq 'Gasabo'
+      
+      # Returns districts in alphabetical order
+      expect(r.district_of('Busasamana')).to eq [ 'Nyanza', 'Rubavu' ].sort
       
       expect(r.district_of('Foobar')).to eq nil
     end

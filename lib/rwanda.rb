@@ -42,8 +42,15 @@ class Rwanda
     end
   end
   def district_of(sector)
-    village = @villages.select_first {|v| v.sector.downcase == sector.downcase}
-    village ? village.district : nil
+    villages = @villages.select {|v| v.sector.downcase == sector.downcase}.collect {|v| { sector: v.sector, district: v.district } }.uniq
+    case villages.length
+      when 0
+        nil
+      when 1
+        villages[0][:district]
+      else
+        villages.collect {|v| v[:district] }.sort
+    end
   end
   # )) Plural Ofs ((
   def districts_of(province)

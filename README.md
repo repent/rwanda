@@ -34,9 +34,9 @@ Then you can try it on the command line:
 ## Usage
 
 ```ruby
-[2] pry(main)> rw=Rwanda.instance
+pry(main)> rw=Rwanda.instance
 => #<Rwanda:0x007f00ea48cf28 ... >
-[3] pry(main)> rw.where_is? 'Gasabo'
+pry(main)> rw.where_is? 'Gasabo'
 Rwanda has 1 district, 0 sectors, 1 cell, and 8 villages called Gasabo:
   Gasabo is a village in Kimaranzara Cell, Rilima Sector, Bugesera District, Eastern Province
   Gasabo is a village in Butiruka Cell, Remera Sector, Gatsibo District, Eastern Province
@@ -49,27 +49,29 @@ Rwanda has 1 district, 0 sectors, 1 cell, and 8 villages called Gasabo:
   Gasabo is a village in Kabeza Cell, Kanombe Sector, Kicukiro District, Kigali City
   Gasabo is a village in Kabuguru II Cell, Rwezamenyo Sector, Nyarugenge District, Kigali City
 => nil
-[4] pry(main)> rw.provinces
+pry(main)> rw.provinces
 => ["Eastern Province", "Kigali City", "Northern Province", "Southern Province", "Western Province"]
-[5] pry(main)> rw.sectors_of 'Gasabo'
+pry(main)> rw.sectors_of 'Gasabo'
 => ["Bumbogo", "Gatsata", "Gikomero", "Gisozi", "Jabana", "Jali", "Kacyiru", "Kimihurura", "Kimironko", "Kinyinya", "Ndera", "Nduba", "Remera", "Rusororo", "Rutunga"]
-[6] pry(main)> rw.district_of 'Giheke'
+pry(main)> rw.district_of 'Giheke'
 => "Rusizi"
-[7] pry(main)> rw.sector_like 'Rukuma'
+pry(main)> rw.district_of 'Busasamana' # returns array if multiple
+=> ["Nyanza", "Rubavu"]
+pry(main)> rw.sector_like 'Rukuma'
 RuntimeError: can't modify frozen #<Class:#<Rwanda:0x007f00ea48cf28>>
 from /home/slack/vendor/bundle/gems/rwanda-0.7.1/lib/rwanda.rb:87:in `sectors'
-[8] pry(main)> rw.is_district? 'Karongi'
+pry(main)> rw.is_district? 'Karongi'
 => true
-[9] pry(main)> rw.is_sector? 'Gashari'
+pry(main)> rw.is_sector? 'Gashari'
 => true
-[10] pry(main)> rw.is_cell? 'Musasa'
+pry(main)> rw.is_cell? 'Musasa'
 => true
-[11] pry(main)> rw.is_village? 'Kaduha'
+pry(main)> rw.is_village? 'Kaduha'
 => true
-[12] pry(main)> # Rwanda#exist?(district, sector, cell, village)
-[13] pry(main)> rw.exist?('Karongi','Bwishyura','Kiniha','Nyarurembo')
+pry(main)> # Rwanda#exist?(district, sector, cell, village)
+pry(main)> rw.exist?('Karongi','Bwishyura','Kiniha','Nyarurembo')
 => true
-[14] pry(main)> rw.exist?('Karongi','Bwishyura','Nyarurembo')
+pry(main)> rw.exist?('Karongi','Bwishyura','Nyarurembo')
 => false
 ```
 
