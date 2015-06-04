@@ -22,6 +22,7 @@ class Village
   end
   def to_h(*options)
     options = [:province, :district, :sector, :cell, :village] if options.empty?
+    # this use of Array#to_h is only available from 2.1.0 onwards
     options.collect {|l| [ l, instance_variable_get("@#{l}") ] }.to_h
   end
   def ==(other)
