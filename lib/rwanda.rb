@@ -88,8 +88,8 @@ class Rwanda
   #  @villages
   #end
   # )) Lists ((
-  def provinces; @villages.collect{|v| v.province}.uniq; end
-  def districts; @villages.collect{|v| v.district}.uniq; end
+  def provinces; @villages.collect{|v| v.province}.uniq.sort; end
+  def districts; @villages.collect{|v| v.district}.uniq.sort; end
   # already introduces ambiguity from sectors down: 37 districts are duplicate names
   def sectors
     @sectors ||= @villages.collect {|v| [v.district, v.sector] }.uniq.collect {|ds| ds[1]}.sort

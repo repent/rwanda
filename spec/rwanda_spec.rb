@@ -68,7 +68,8 @@ describe Rwanda do
   describe '.subdivisions_of' do
     it 'knows the sub-divisions of a district, sector or cell' do
       expect(r.subdivisions_of(['Ruhango', 'Ruhango', 'Gikoma'])).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']
-      expect(r.subdivisions_of(['RuhANgo', 'RUHANGO', 'GIKOMA'])).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']    
+      expect(r.subdivisions_of(['RuhANgo', 'RUHANGO', 'GIKOMA'])).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']
+      expect(r.subdivisions_of([])).to eq r.districts.sort
     end
   end
   
