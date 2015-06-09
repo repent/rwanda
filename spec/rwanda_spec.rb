@@ -34,8 +34,8 @@ describe Rwanda do
   
   describe '.districts_of' do
     it 'knows all the districts of each province' do
-      expect(r.districts_of('Kigali City').sort).to eq ["Gasabo", "Kicukiro", "Nyarugenge"].sort
-      expect(r.districts_of('kigali city').sort).to eq ["Gasabo", "Kicukiro", "Nyarugenge"].sort
+      expect(r.districts_of('Kigali City')).to eq ["Gasabo", "Kicukiro", "Nyarugenge"].sort
+      expect(r.districts_of('kigali city')).to eq ["Gasabo", "Kicukiro", "Nyarugenge"].sort
       expect(r.districts_of('Foobar')).to eq nil
     end
   end
@@ -66,7 +66,7 @@ describe Rwanda do
   end
   
   describe '.subdivisions_of' do
-    it 'knows the sub-divisions of a district, sector or cell' do
+    it 'knows the sub-divisions of Rwanda, or a district, sector or cell' do
       expect(r.subdivisions_of(['Ruhango', 'Ruhango', 'Gikoma'])).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']
       expect(r.subdivisions_of(['RuhANgo', 'RUHANGO', 'GIKOMA'])).to eq ['Gatengeri', 'Gikumba', 'Karama', 'Murambi', 'Nangurugomo', 'Nyarusange', 'Rebero', 'Rubiha', 'Rurembo', 'Ryabonyinka', 'Wimana']
       expect(r.subdivisions_of([])).to eq r.districts.sort
