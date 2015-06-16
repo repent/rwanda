@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+
+ * Make pry a runtime dependency
+
 ## 0.8.0
 
  * Fix .district_of when sector belongs to multiple districts (#2)
