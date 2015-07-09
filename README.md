@@ -102,6 +102,12 @@ If you are not familiar with this data set, it's worth noting the following feat
  * at the cell or village level, there may be multiple villages with the same name, differentiated by a number (in roman numerals) e.g. Matimba cell has seven "Umudugudu Wa"s
  * you might find where_is? helpful for inspecting ambiguity: it lists all divisions at all levels that share the name you give it (try `rw.where_is? 'Gatsibo'`)
 
+## Other Sources
+
+To my knowledge, this dataset has not been published by MINALOC.
+
+[NISR](http://www.statistics.gov.rw/) do, however, publish this information in CSV format down to cell level (2148 cells), as part of their [geolocation datasets](http://statistics.gov.rw/geodata).
+ 
 ## Contributing
 
 1. Fork it ( https://github.com/repent/rwanda/fork )
