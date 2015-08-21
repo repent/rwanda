@@ -34,7 +34,8 @@ class Rwanda
 
   # Singular Ofs ((
   def province_of(district, rw=false)
-    village = @villages.select_first {|v| v.district.downcase == district.downcase}
+    #village = @villages.select_first {|v| v.district.downcase == district.downcase}
+    village = @villages.select {|v| v.district.downcase == district.downcase}.first
     if village
       if rw then RW[village.province] else village.province end
     else

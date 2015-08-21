@@ -57,9 +57,8 @@ pry(main)> rw.district_of 'Giheke'
 => "Rusizi"
 pry(main)> rw.district_of 'Busasamana' # returns array if multiple
 => ["Nyanza", "Rubavu"]
-pry(main)> rw.sector_like 'Rukuma'
-RuntimeError: can't modify frozen #<Class:#<Rwanda:0x007f00ea48cf28>>
-from /home/slack/vendor/bundle/gems/rwanda-0.7.1/lib/rwanda.rb:87:in `sectors'
+pry(main)> r.sector_like 'Rukuma'
+=> "Rukumberi"
 pry(main)> rw.is_district? 'Karongi'
 => true
 pry(main)> rw.is_sector? 'Gashari'

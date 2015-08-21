@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.2
+ 
+ * adding .select_first to Array seems to cause freeze problems with newer versions of Ruby (2+?) so they've been removed
+
 ## 0.8.1
 
  * Make pry a runtime dependency
