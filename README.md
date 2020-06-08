@@ -57,7 +57,7 @@ pry(main)> rw.district_of 'Giheke'
 => "Rusizi"
 pry(main)> rw.district_of 'Busasamana' # returns array if multiple
 => ["Nyanza", "Rubavu"]
-pry(main)> r.sector_like 'Rukuma'
+pry(main)> rw.sector_like 'Rukuma'
 => "Rukumberi"
 pry(main)> rw.is_district? 'Karongi'
 => true
